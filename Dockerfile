@@ -20,7 +20,7 @@ RUN apk --no-cache upgrade && \
       ssmtp \
       su-exec && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade mezzanine && \
+    pip --no-cache-dir install --upgrade pyv8 pyopenssl tesseract pycrypto python-pil feedparser BeautifulSoup thrift beaker jinja2 pycurl && \
     git clone --depth 1 https://github.com/pyload/pyload.git /opt/pyload && \
     apk del --no-cache --purge \
       build-deps  && \
