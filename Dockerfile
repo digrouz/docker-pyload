@@ -16,12 +16,14 @@ RUN apk --no-cache upgrade && \
       python-dev \
       py-pip \
       openssl-dev \
+      curl-dev \
       musl-dev \
       git \
       py-pip  && \
     apk add --no-cache --virtual=run-deps \
       python \ 
       ssmtp \
+      libcurl \
       su-exec && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade \
