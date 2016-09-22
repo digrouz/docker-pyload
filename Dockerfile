@@ -10,8 +10,12 @@ ENV LANG='en_US.UTF-8' \
 ### Install Application
 RUN apk --no-cache upgrade && \
     apk add --no-cache --virtual=build-deps \
-      gcc \
+      make \
+      gcc \
+      g++ \
       python-dev \
+      py-pip \
+      openssl-dev \
       musl-dev \
       git \
       py-pip  && \
