@@ -29,7 +29,7 @@ RUN apk --no-cache upgrade && \
       pyopenssl \
       tesseract \
       pycrypto \
-      PIL \
+      Pillow \
       feedparser \
       BeautifulSoup \
       thrift \
