@@ -71,7 +71,7 @@ if [ "$1" = 'pyload' ]; then
     fi
     /bin/chown -R "${MYUSER}":"${MYUSER}" /config 
     /bin/chmod -R g+w /config /config
-    exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/pyload/pyLoadCore.py --configdir=/config "$@"
+    exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/pyload/pyLoadCore.py --configdir=/config 
 fi
 
 exec "$@"
