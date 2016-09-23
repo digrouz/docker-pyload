@@ -27,7 +27,7 @@ RUN apk --no-cache upgrade && \
       su-exec && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade \
-      pyv8 \
+      spidemonkey \
       pyopenssl \
       tesseract \
       pycrypto \
