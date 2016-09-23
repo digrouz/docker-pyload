@@ -5,7 +5,8 @@ MAINTAINER DI GREGORIO Nicolas "nicolas.digregorio@gmail.com"
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
-    TERM='xterm' 
+    TERM='xterm' \
+    PYCURL_SSL_LIBRARY='openssl'
 
 ### Install Application
 RUN apk --no-cache upgrade && \
