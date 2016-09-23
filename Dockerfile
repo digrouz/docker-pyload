@@ -19,7 +19,7 @@ RUN apk --no-cache upgrade && \
       curl-dev \
       musl-dev \
       libffi-dev \
-      jpeg-8-dev \
+      jpeg-dev \
       git \
       py-pip  && \
     pip --no-cache-dir install --upgrade setuptools && \
@@ -43,9 +43,10 @@ RUN apk --no-cache upgrade && \
       ssmtp \
       libffi \
       libcurl \
-      jpeg-8 \
+      jpeg \
       su-exec && \
     rm -rf /tmp/* \
+           /opt/pyload/.git \
            /var/cache/apk/*  \
            /var/tmp/*
 
