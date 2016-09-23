@@ -19,14 +19,9 @@ RUN apk --no-cache upgrade && \
       curl-dev \
       musl-dev \
       libffi-dev \
+      jpeg-8-dev \
       git \
       py-pip  && \
-    apk add --no-cache --virtual=run-deps \
-      python \ 
-      ssmtp \
-      libffi \
-      libcurl \
-      su-exec && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade \
       spidermonkey \
@@ -43,6 +38,13 @@ RUN apk --no-cache upgrade && \
     git clone --depth 1 https://github.com/pyload/pyload.git /opt/pyload && \
     apk del --no-cache --purge \
       build-deps  && \
+    apk add --no-cache --virtual=run-deps \
+      python \
+      ssmtp \
+      libffi \
+      libcurl \
+      jpeg-8 \
+      su-exec && \
     rm -rf /tmp/* \
            /var/cache/apk/*  \
            /var/tmp/*
