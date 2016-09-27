@@ -45,6 +45,7 @@ RUN apk --no-cache upgrade && \
       libffi \
       libcurl \
       jpeg \
+      unrar \
       su-exec && \
     rm -rf /tmp/* \
            /opt/pyload/.git \

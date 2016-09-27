@@ -66,11 +66,40 @@ ConfigureUser
 ConfigureSsmtp
 
 if [ "$1" = 'pyload' ]; then
+    if [ -d /config ]; then
+      /bin/chown -R "${MYUSER}":"${MYUSER}" /config
+      /bin/chmod 0775 /config
+    fi
     if [ -e /config/pyload.pid ]; then
       /bin/rm /config/pyload.pid
     fi
-    /bin/chown -R "${MYUSER}":"${MYUSER}" /config 
-    /bin/chmod -R g+w /config /config
+    for J in package_finished download_finished: do 
+      if [ ! -d /config/script/${J} ]; then
+        /bin/mkdir -p /config/script/${J}
+        /bin/chown -R "${MYUSER}":"${MYUSER}" /config/script/${J}
+        /bin/chmod 0775 /config/script/${J}
+      fi
+    done
+    if [ ! -f /config/scripts/package_finished/mail-notification.sh ]; then
+      cat << EOF2 > /config/scripts/package_finished/mail-notification.sh
+#!/bin/sh
+/bin/mail -s "Pyload: Package Finished" root <<EOF
+\${1} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
+EOF
+EOF2
+      /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/package_finished/mail-notification.sh
+      /bin/chmod 0775 /config/scripts/package_finished/mail-notification.sh
+    fi
+    if [ ! -f /config/scripts/download_finished/mail-notification.sh ]; then
+      cat << EOF2 > /config/scripts/download_finished/mail-notification.sh
+#!/bin/sh
+/bin/mail -s "Pyload: Download Finished" root <<EOF
+\${1} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
+EOF
+EOF2
+      /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/download_finished/mail-notification.sh
+      /bin/chmod 0775 /config/scripts/download_finished/mail-notification.sh
+    fi
     exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/pyload/pyLoadCore.py --configdir=/config 
 fi
 
