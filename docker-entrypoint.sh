@@ -73,7 +73,7 @@ if [ "$1" = 'pyload' ]; then
     if [ -e /config/pyload.pid ]; then
       /bin/rm /config/pyload.pid
     fi
-    for J in package_finished download_finished: do 
+    for J in package_finished download_finished; do 
       if [ ! -d /config/script/${J} ]; then
         /bin/mkdir -p /config/script/${J}
         /bin/chown -R "${MYUSER}":"${MYUSER}" /config/script/${J}
