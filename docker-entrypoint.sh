@@ -83,7 +83,7 @@ if [ "$1" = 'pyload' ]; then
     if [ ! -f /config/scripts/package_finished/mail-notification.sh ]; then
       cat << EOF2 > /config/scripts/package_finished/mail-notification.sh
 #!/bin/sh
-/bin/mail -s "Pyload: Package Finished" root <<EOF
+/usr/bin/mail -s "Pyload: Package Finished" root <<EOF
 \${1} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
 EOF
 EOF2
@@ -93,7 +93,7 @@ EOF2
     if [ ! -f /config/scripts/download_finished/mail-notification.sh ]; then
       cat << EOF2 > /config/scripts/download_finished/mail-notification.sh
 #!/bin/sh
-/bin/mail -s "Pyload: Download Finished" root <<EOF
+/usr/bin/mail -s "Pyload: Download Finished" root <<EOF
 \${1} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
 EOF
 EOF2

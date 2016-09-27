@@ -42,6 +42,7 @@ RUN apk --no-cache upgrade && \
     apk add --no-cache --virtual=run-deps \
       python \
       ssmtp \
+      mailx \
       libffi \
       libcurl \
       jpeg \
