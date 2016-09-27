@@ -74,10 +74,10 @@ if [ "$1" = 'pyload' ]; then
       /bin/rm /config/pyload.pid
     fi
     for J in package_finished download_finished; do 
-      if [ ! -d /config/script/${J} ]; then
-        /bin/mkdir -p /config/script/${J}
-        /bin/chown -R "${MYUSER}":"${MYUSER}" /config/script/${J}
-        /bin/chmod 0775 /config/script/${J}
+      if [ ! -d /config/scripts/${J} ]; then
+        /bin/mkdir -p /config/scripts/${J}
+        /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/${J}
+        /bin/chmod 0775 /config/scripts/${J}
       fi
     done
     if [ ! -f /config/scripts/package_finished/mail-notification.sh ]; then
