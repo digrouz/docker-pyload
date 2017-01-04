@@ -15,7 +15,7 @@ RUN apk --no-cache upgrade && \
       gcc \
       g++ \
       python-dev \
-      py-pip \
+      py2-pip \
       libressl-dev \
       curl-dev \
       musl-dev \
