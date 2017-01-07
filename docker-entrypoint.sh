@@ -1,8 +1,8 @@
 #!/bin/sh
 
-local MYUSER="pyload"
-local MYGID="10005"
-local MYUID="10005"
+MYUSER="pyload"
+MYGID="10005"
+MYUID="10005"
 
 ConfigureSsmtp () {
   # Customizing sstmp
