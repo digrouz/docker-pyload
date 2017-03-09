@@ -36,7 +36,7 @@ RUN apk --no-cache upgrade && \
       beaker \
       jinja2 \
       pycurl && \
-    git clone --depth 1 https://github.com/pyload/pyload.git /opt/pyload && \
+    git clone --depth 1 https://github.com/pyload/pyload.git -b stable /opt/pyload && \
     apk del --no-cache --purge \
       build-deps  && \
     apk add --no-cache --virtual=run-deps \
