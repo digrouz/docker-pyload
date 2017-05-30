@@ -114,7 +114,7 @@ if [ "$1" = 'pyload' ]; then
       cat << EOF2 > /config/scripts/package_finished/mail-notification.sh
 #!/bin/sh
 /usr/bin/mail -s "Pyload: Package Finished" root <<EOF
-\${1} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
+\${2} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
 EOF
 EOF2
       /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/package_finished/mail-notification.sh
