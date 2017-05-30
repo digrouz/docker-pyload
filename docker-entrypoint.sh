@@ -113,9 +113,11 @@ if [ "$1" = 'pyload' ]; then
     if [ ! -f /config/scripts/package_finished/mail-notification.sh ]; then
       cat << EOF2 > /config/scripts/package_finished/mail-notification.sh
 #!/bin/sh
-/usr/bin/mail -s "Pyload: Package Finished" root <<EOF
+exec /usr/bin/mail -s "Pyload: Package Finished" root <<EOF
 \${2} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
 EOF
+sleep 2
+exit 0
 EOF2
       /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/package_finished/mail-notification.sh
       /bin/chmod 0775 /config/scripts/package_finished/mail-notification.sh
@@ -123,9 +125,11 @@ EOF2
     if [ ! -f /config/scripts/download_finished/mail-notification.sh ]; then
       cat << EOF2 > /config/scripts/download_finished/mail-notification.sh
 #!/bin/sh
-/usr/bin/mail -s "Pyload: Download Finished" root <<EOF
+exec /usr/bin/mail -s "Pyload: Download Finished" root <<EOF
 \${2} was finished at \$(date +"%H:%M") on \$(date +"%d.%m.%y"). ...forwarding it now to the extraction queue.
 EOF
+sleep 2
+exit 0
 EOF2
       /bin/chown -R "${MYUSER}":"${MYUSER}" /config/scripts/download_finished/mail-notification.sh
       /bin/chmod 0775 /config/scripts/download_finished/mail-notification.sh
