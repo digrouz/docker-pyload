@@ -60,7 +60,7 @@ RUN apk --no-cache upgrade && \
 VOLUME ["/downloads","/config"]
 
 ### Expose ports
-EXPOSE 8000 7227
+EXPOSE 8000 7227 9666
 
 ### Running User: not used, managed by docker-entrypoint.sh
 #USER pyload

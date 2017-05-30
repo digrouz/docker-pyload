@@ -20,7 +20,8 @@ https://github.com/pyload/pyload
       -e DOCKRELAY=<smtp relay> \
       -e DOCKMAILDOMAIN=<originating mail domain> \
       -p 8000:8000  \
-      -p 7227:7227  digrouz/docker-deb-pyload
+      -p 7227:7227  \
+	  -p 9666:9666 digrouz/docker-alp-pyload
 
 
 ## Environment Variables
@@ -50,3 +51,6 @@ This variable is not mandatory and specifies the address where the mail appears 
 ## Notes
 
 * The docker entrypoint will upgrade operating system at each startup.
+* The port 8000 is used for webui
+* The port 7227 is used for the api
+* The port 9666 is used for click n load plugin
