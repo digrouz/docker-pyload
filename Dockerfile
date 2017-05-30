@@ -22,6 +22,7 @@ RUN apk --no-cache upgrade && \
       libffi-dev \
       jpeg-dev \
       git \
+      zlib-dev \
       py-pip  && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade \
@@ -47,6 +48,7 @@ RUN apk --no-cache upgrade && \
       libcurl \
       jpeg \
       unrar \
+      zlib \
       su-exec && \
     rm -rf /tmp/* \
            /opt/pyload/.git \
