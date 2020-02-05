@@ -1,7 +1,12 @@
-# docker-alp-pyload
-Install pyload git version into an Alpine Linux container
+# docker-pyload
+Install pyload git version into a Linux container
 
 ![pyload](https://github.com/pyload/pyload/blob/master/pyload/webui/themes/Default/img/pyload-logo.png)
+
+## Tag
+Several tag are available:
+* latest: see alpine
+* alpine: [/Dockerfile_alpine](https://github.com/digrouz/docker-pyload/blob/master/Dockerfile_alpine)
 
 ## Description
 
@@ -21,7 +26,7 @@ https://github.com/pyload/pyload
       -e DOCKMAILDOMAIN=<originating mail domain> \
       -p 8000:8000  \
       -p 7227:7227  \
-	  -p 9666:9666 digrouz/docker-alp-pyload
+      -p 9666:9666 digrouz/pyload
 
 
 ## Environment Variables
@@ -48,9 +53,18 @@ This variable is not mandatory and specifies the mail that has to be used to sen
 
 This variable is not mandatory and specifies the address where the mail appears to come from for user authentication. Do not specify any if mail notifications are not required.
 
+### `DOCKUPGRADE`
+
+This variable is not mandatory and specifies if the container has to launch software update at startup or not. Valid values are `0` and `1`. It has default value `0`.
+
 ## Notes
 
-* The docker entrypoint will upgrade operating system at each startup.
+* The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e DOCKUPGRADE=1` at container creation.
 * The port 8000 is used for webui
 * The port 7227 is used for the api
 * The port 9666 is used for click n load plugin
+
+## Issues
+
+If you encounter an issue please open a ticket at [github](https://github.com/digrouz/docker-pyload/issues)
+
