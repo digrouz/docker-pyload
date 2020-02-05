@@ -1,19 +1,33 @@
-FROM alpine:latest
+FROM alpine:3.11
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
+    APPUSER='pyload' \
+    APPUID='10005' \
+    APPGID='10005' \
     PYCURL_SSL_LIBRARY='openssl'
 
+### Copy config files
+COPY root/ /
+
 ### Install Application
-RUN apk --no-cache upgrade && \
+RUN set -x && \
+    chmod 1777 /tmp && \
+    . /usr/local/bin/docker-entrypoint-functions.sh && \
+    MYUSER="${APPUSER}" && \
+    MYUID="${APPUID}" && \
+    MYGID="${APPGID}" && \
+    ConfigureUser && \
+    apk upgrade --no-cache && \
+    apk --no-cache upgrade && \
     apk add --no-cache --virtual=build-deps \
       make \
       gcc \
       g++ \
-      python-dev \
+      python2-dev \
       py2-pip \
       libressl-dev \
       curl-dev \
@@ -22,35 +36,48 @@ RUN apk --no-cache upgrade && \
       jpeg-dev \
       git \
       zlib-dev \
-      py-pip  && \
-    pip --no-cache-dir install --upgrade setuptools && \
+      py-pip  \
+    && \
     pip --no-cache-dir install --upgrade \
-      spidermonkey \
+      pip \
+      setuptools \
+      wheel \
+    && \
+    pip --no-cache-dir install --upgrade \
+      beaker \
+      BeautifulSoup \
+      feedparser \
+      jinja2 \
+      Pillow \
+      pycrypto \
+      pycurl \
       pyopenssl \
       tesseract \
-      pycrypto \
-      Pillow \
-      feedparser \
-      BeautifulSoup \
+      spidermonkey \
       thrift \
-      beaker \
-      jinja2 \
-      pycurl && \
+    && \
     git clone --depth 1 https://github.com/pyload/pyload.git -b stable /opt/pyload && \
     apk del --no-cache --purge \
       build-deps  && \
     apk add --no-cache --virtual=run-deps \
-      python \
-      ssmtp \
-      mailx \
+      bash \
+      jpeg \
       libffi \
       libcurl \
-      jpeg \
+      mailx \
+      python2 \
+      ssmtp \
+      su-exec \
+      tesseract-ocr \
       unrar \
+      unzip \
       zlib \
-      su-exec && \
-    rm -rf /tmp/* \
-           /opt/pyload/.git \
+    && \
+    mkdir /docker-entrypoint.d && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    rm -rf /opt/pyload/.git \
+           /tmp/* \
            /var/cache/apk/*  \
            /var/tmp/*
 
@@ -65,7 +92,6 @@ EXPOSE 8000 7227 9666
 #USER pyload
 
 ### Start pyload
-COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["pyload"]
 
