@@ -9,7 +9,6 @@ MYUID="${APPUID}"
 
 AutoUpgrade
 ConfigureUser
-ConfigureSsmtp
 
 if [ "${1}" == 'pyload' ]; then
   if [ -d /config ]; then
