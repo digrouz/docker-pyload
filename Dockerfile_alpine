@@ -57,6 +57,7 @@ RUN set -x && \
       thrift \
     && \
     git clone --depth 1 https://github.com/pyload/pyload.git -b stable /opt/pyload && \
+    chown -R ${MYUSER} /opt/pyload && \
     apk del --no-cache --purge \
       build-deps  && \
     apk add --no-cache --virtual=run-deps \
