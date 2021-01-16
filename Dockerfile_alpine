@@ -29,7 +29,7 @@ RUN set -x && \
       g++ \
       python2-dev \
       py2-pip \
-      libressl-dev \
+      openssl-dev \
       curl-dev \
       musl-dev \
       libffi-dev \
@@ -66,6 +66,7 @@ RUN set -x && \
       libffi \
       libcurl \
       mailx \
+      openssl \
       python2 \
       ssmtp \
       su-exec \
