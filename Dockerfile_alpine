@@ -1,99 +1,79 @@
-FROM alpine:3.11
-LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+ARG PYLOAD_VERSION='0.5.0b3-dev54'
+ARG UNRAR_VERSION='6.2.6'
 
-### Environment variables
-ENV LANG='en_US.UTF-8' \
-    LANGUAGE='en_US.UTF-8' \
-    TERM='xterm' \
-    APPUSER='pyload' \
-    APPUID='10005' \
-    APPGID='10005' \
-    PYCURL_SSL_LIBRARY='openssl'
+FROM digrouz/alpine-s6:latest as builder
 
-### Copy config files
-COPY root/ /
+ARG PYLOAD_VERSION
+ARG UNRAR_VERSION
 
-### Install Application
+ENV PYLOAD_VERSION="${PYLOAD_VERSION}"\
+    UNRAR_VERSION="${UNRAR_VERSION}"
+
 RUN set -x && \
-    chmod 1777 /tmp && \
-    . /usr/local/bin/docker-entrypoint-functions.sh && \
-    MYUSER="${APPUSER}" && \
-    MYUID="${APPUID}" && \
-    MYGID="${APPGID}" && \
-    ConfigureUser && \
     apk upgrade --no-cache && \
-    apk --no-cache upgrade && \
     apk add --no-cache --virtual=build-deps \
-      make \
+      curl \
+      curl-dev \
       gcc \
       g++ \
-      python2-dev \
-      py2-pip \
-      openssl-dev \
-      curl-dev \
+      make \
       musl-dev \
-      libffi-dev \
-      jpeg-dev \
-      git \
-      zlib-dev \
-      py-pip  \
+      py3-pip \
+      py3-virtualenv \
+      python3-dev \
     && \
+    cd /opt && \
+    virtualenv pyload && \
+    cd pyload && \
+    . bin/activate && \
     pip --no-cache-dir install --upgrade \
       pip \
       setuptools \
       wheel \
     && \
     pip --no-cache-dir install --upgrade \
-      beaker \
-      BeautifulSoup \
-      feedparser \
-      jinja2 \
-      Pillow \
-      pycrypto \
-      pycurl \
-      pyopenssl \
-      tesseract \
-      spidermonkey \
-      thrift \
+      pyload-ng[all]==${PYLOAD_VERSION} \
     && \
-    git clone --depth 1 https://github.com/pyload/pyload.git -b stable /opt/pyload && \
-    chown -R ${MYUSER} /opt/pyload && \
-    apk del --no-cache --purge \
-      build-deps  && \
+    curl -SsL https://www.rarlab.com/rar/unrarsrc-${UNRAR_VERSION}.tar.gz -o /tmp/unrar.tar.gz && \
+    cd /tmp && \
+    tar xzf /tmp/unrar.tar.gz && \
+    cd unrar && \
+    make -f makefile && \
+    chmod 755 unrar
+
+FROM digrouz/alpine-s6:latest
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+ARG PYLOAD_VERSION
+ARG UNRAR_VERSION
+
+### Environment variables
+ENV PYLOAD_VERSION="${PYLOAD_VERSION}"\
+    UNRAR_VERSION="${UNRAR_VERSION}"
+
+### Copy config files
+COPY root/ /
+COPY --from=builder /opt/pyload /opt/pyload
+COPY --from=builder /tmp/unrar/unrar /usr/bin/unrar
+
+### Install Application
+RUN set -x && \
+    apk --no-cache upgrade && \
+    chown -R appuser /opt/pyload && \
     apk add --no-cache --virtual=run-deps \
-      bash \
-      jpeg \
-      libffi \
       libcurl \
       mailx \
-      openssl \
-      python2 \
+      python3 \
       ssmtp \
-      su-exec \
-      tesseract-ocr \
-      unrar \
       unzip \
-      zlib \
     && \
-    mkdir -p /docker-entrypoint.d && \
-    chmod +x /usr/local/bin/docker-entrypoint.sh && \
-    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
-    rm -rf /opt/pyload/.git \
-           /tmp/* \
+    rm -rf /tmp/* \
            /var/cache/apk/*  \
            /var/tmp/*
-
 
 ### Volume
 VOLUME ["/downloads","/config"]
 
 ### Expose ports
 EXPOSE 8000 7227 9666
-
-### Running User: not used, managed by docker-entrypoint.sh
-#USER pyload
-
-### Start pyload
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["pyload"]
 

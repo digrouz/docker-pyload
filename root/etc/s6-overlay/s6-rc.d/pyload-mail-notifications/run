@@ -1,0 +1,23 @@
+#!/command/with-contenv sh
+
+for script in package_finished download_finished; do
+  if [ ! -d /config/scripts/${script} ]; then
+    mkdir -p /config/scripts/${script}
+    chown -R appuser:appuser /config/scripts/${script}
+    chmod 0775 /config/scripts/${script}
+  fi
+done
+
+if [ ! -f /config/scripts/package_finished/mail-notification.sh ]; then
+  cp /usr/local/bin/pyload-package-finished-mail-notification.sh  /config/scripts/package_finished/mail-notification.sh
+  chown -R appuser:appuser /config/scripts/package_finished/mail-notification.sh
+  chmod 0775 /config/scripts/package_finished/mail-notification.sh
+fi
+
+if [ ! -f /config/scripts/download_finished/mail-notification.sh ]; then
+  cp /usr/local/bin/pyload-download-finished-mail-notification.sh  /config/scripts/download_finished/mail-notification.sh
+  chown -R appuser:appuser /config/scripts/download_finished/mail-notification.sh
+  chmod 0775 /config/scripts/download_finished/mail-notification.sh
+fi
+
+

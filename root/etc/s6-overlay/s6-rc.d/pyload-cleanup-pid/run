@@ -1,0 +1,6 @@
+#!/command/with-contenv sh
+
+if [ -e /config/pyload.pid ]; then
+  rm /config/pyload.pid
+fi
+

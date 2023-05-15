@@ -1,0 +1,8 @@
+#!/command/with-contenv sh
+
+export PATH=/opt/pyload/bin:${PATH}
+
+. /opt/pyload/bin/activate
+
+exec s6-setuidgid appuser python /opt/pyload/pyLoadCore.py --configdir=/config
+
