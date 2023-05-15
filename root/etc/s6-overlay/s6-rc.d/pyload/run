@@ -4,5 +4,6 @@ export PATH=/opt/pyload/bin:${PATH}
 
 . /opt/pyload/bin/activate
 
-exec s6-setuidgid appuser pyload --userdir=/config --storagedir=/downloads --tempdir=/temporary-downloads
+cd /config
 
+exec s6-setuidgid appuser pyload --userdir=/config --storagedir=/downloads --tempdir=/temporary-downloads
