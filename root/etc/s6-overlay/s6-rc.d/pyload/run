@@ -1,6 +1,7 @@
 #!/command/with-contenv sh
 
 export PATH=/opt/pyload/bin:${PATH}
+export HOME=/config
 
 . /opt/pyload/bin/activate
 
