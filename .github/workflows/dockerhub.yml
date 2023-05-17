@@ -51,5 +51,5 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        repository: ${{ secrets.DOCKERHUB_USERNAME }}/sabnzbd
+        repository: ${{ secrets.DOCKERHUB_USERNAME }}/pyload
         short-description: ${{ github.event.repository.description }}
