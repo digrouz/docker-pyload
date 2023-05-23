@@ -4,7 +4,8 @@ set -x
 PYLOAD_URL="https://pypi.org/project/pyload-ng/\#history"
 
 FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
-                    grep -oP "<a class=\"card release__card\" href=\"/project/pyload-ng/\K.*\d" \
+                    grep -oP "<a class=\"card release__card\" href=\"/project/pyload-ng/\K.*\d" | \
+                    head -1
                   )
 LAST_VERSION="${FULL_LAST_VERSION}"
 
