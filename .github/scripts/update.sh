@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PYLOAD_URL="curl -SsL https://pypi.org/project/pyload-ng/\#history"
+PYLOAD_URL="https://pypi.org/project/pyload-ng/\#history"
 
 FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
                     grep -oP "<a class=\"card release__card\" href=\"/project/pyload-ng/\K.*\d" \
