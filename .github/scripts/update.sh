@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 PYLOAD_URL="https://pypi.org/project/pyload-ng/\#history"
 
