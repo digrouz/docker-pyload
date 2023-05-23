@@ -1,4 +1,4 @@
-ARG PYLOAD_VERSION=''
+ARG PYLOAD_VERSION='              <a class="card release__card" href="/project/pyload-ng/0.5.0b3.dev71/">'
 ARG UNRAR_VERSION='6.2.7'
 
 FROM digrouz/alpine-s6:latest as builder

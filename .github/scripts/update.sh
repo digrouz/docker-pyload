@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-PYLOAD_URL="https://pypi.org/project/pyload-ng/\#history"
+PYLOAD_URL="https://pypi.org/project/pyload-ng/#history"
 
 FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
                     egrep 'release__card' | \
