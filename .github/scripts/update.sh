@@ -7,7 +7,10 @@ FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
                   )
 LAST_VERSION="${FULL_LAST_VERSION}"
 
-sed -i -e "s|PYLOAD_VERSION='.*'|PYLOAD_VERSION='${LAST_VERSION}'|" Dockerfile*
+
+if [ "${LAST_VERSION}" ]; then
+  sed -i -e "s|PYLOAD_VERSION='.*'|PYLOAD_VERSION='${LAST_VERSION}'|" Dockerfile*
+fi
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
   # Working directory clean
