@@ -5,7 +5,7 @@ PYLOAD_URL="https://pypi.org/project/pyload-ng/\#history"
 
 FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
                     egrep 'release__card' | \
-                    sed -e 's|^.*pyload-ng/||' -e 's|/">||'  | \
+                    sed -e 's|^.*pyload-ng/||' -e 's|/">||' | \
                     head -1
                   )
 LAST_VERSION="${FULL_LAST_VERSION}"
