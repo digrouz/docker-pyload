@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-SABNZBD_URL="https://api.github.com/repos/sabnzbd/sabnzbd/releases"
+PYLOAD_URL="curl -SsL https://pypi.org/project/pyload-ng/\#history"
 
-FULL_LAST_VERSION=$(curl -SsL ${SABNZBD_URL} | \
-              jq -r -c '.[] | select( .prerelease == false ) | .tag_name' |\
-              head -1 \
-              )
+FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
+                    grep -oP "<a class=\"card release__card\" href=\"/project/pyload-ng/\K.*\d" \
+                  )
 LAST_VERSION="${FULL_LAST_VERSION}"
 
-sed -i -e "s|SABNZBD_VERSION='.*'|SABNZBD_VERSION='${LAST_VERSION}'|" Dockerfile*
+sed -i -e "s|PYLOAD_VERSION='.*'|PYLOAD_VERSION='${LAST_VERSION}'|" Dockerfile*
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
   # Working directory clean
