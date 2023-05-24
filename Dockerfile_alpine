@@ -72,7 +72,7 @@ RUN set -x && \
            /var/tmp/*
 
 ### Volume
-VOLUME ["/downloads","/config"]
+VOLUME ["/downloads","/config","/temporary-downloads"]
 
 ### Expose ports
 EXPOSE 8000 7227 9666
