@@ -2,7 +2,7 @@
 
 UNRAR_URL="https://www.rarlab.com/rar_add.htm"
 
-LAST_VERSION=$(curl ${UNRAR_URL} | egrep "unrarsrc.*UnRAR source" | sed -e 's|^.*unrarsrc-||' -e 's|.tar.gz.*$||')
+LAST_VERSION=$(curl -SsL ${UNRAR_URL} | egrep "unrarsrc.*UnRAR release source" | sed -e 's|^.*unrarsrc-||' -e 's|.tar.gz.*$||')
 
 sed -i -e "s|UNRAR_VERSION='.*'|UNRAR_VERSION='${LAST_VERSION}'|" Dockerfile*
 
