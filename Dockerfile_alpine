@@ -1,4 +1,4 @@
-ARG PYLOAD_VERSION='0.5.0b3.dev79'
+ARG PYLOAD_VERSION='0.5.0b3.dev80'
 ARG UNRAR_VERSION='6.2.12'
 
 FROM digrouz/alpine-s6:latest as builder
