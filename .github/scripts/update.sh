@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-PYLOAD_URL="https://pypi.org/project/pyload-ng/#history"
+PYLOAD_URL="https://pypi.org/rss/project/pyload-ng/releases.xml"
 
 FULL_LAST_VERSION=$(curl -SsL ${PYLOAD_URL} | \
-                    egrep 'release__card' | \
-                    sed -e 's|^.*pyload-ng/||' -e 's|/">||' | \
+                    grep 'title' | \
+                    grep -v 'PyPI' | \
+                    sed -e 's|^.*<title>||' -e 's|</title>||' | \
                     head -1
                   )
 LAST_VERSION="${FULL_LAST_VERSION}"
